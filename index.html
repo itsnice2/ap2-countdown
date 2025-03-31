@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP2-Countdown</title>
+</head>
+<body>
+
+    <div class="timercontainer">
+        <div>
+            <div class="ueberschrift">
+                Countdown bis zur AP2
+            </div>
+            <div class="untertitel">
+                Datum: 07.05.2025 - 08 Uhr
+            </div>
+            <hr>
+        </div>
+        <div class="timer" id="timer">
+            Augenblick...
+        </div>
+    </div>
+
+    
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .timercontainer{
+            width: 360px;
+            height: 200px;
+            border: solid 1px lightskyblue;
+            border-radius: 30px;            
+            padding: 10px 20px;
+
+            position: fixed;
+            top: calc(40% - 100px);
+            left: calc(50% - 200px);
+        }
+
+        .ueberschrift, .untertitel, .timer{
+            text-align: center;
+
+        }
+
+        .ueberschrift{
+            font-size: 20pt;
+            padding-top: 10px
+        }
+
+        .untertitel{
+            font-size: 10pt;
+            padding: 10px 0;
+        }
+
+        .timer{
+            padding-top: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 24pt;
+            font-weight: bold;
+        }
+
+        hr{
+            color:lightskyblue
+        }
+    </style>
+
+
+    <script>
+        CountDownTimer('05/07/2025 08:00 AM', 'timer');
+
+        function CountDownTimer(dt, id)
+        {
+            var end = new Date(dt);
+
+            var _second = 1000;
+            var _minute = _second * 60;
+            var _hour = _minute * 60;
+            var _day = _hour * 24;
+            var timer;
+
+            function showRemaining() {
+                var now = new Date();
+                var distance = end - now;
+                if (distance < 0) {
+
+                    clearInterval(timer);
+                    document.getElementById(id).innerHTML = "<img src='geschafft.png' height='90px'>";
+
+                    return;
+                }
+                var days = Math.floor(distance / _day);
+                var hours = Math.floor((distance % _day) / _hour);
+                var minutes = Math.floor((distance % _hour) / _minute);
+                var seconds = Math.floor((distance % _minute) / _second);
+
+                if(days > 1){
+                    document.getElementById(id).innerHTML = days + ' Tage ';
+
+                }
+                else if(days == 1){
+                    document.getElementById(id).innerHTML = days + ' Tag ';
+                }
+
+                if(hours == 1){
+                    document.getElementById(id).innerHTML += hours + ' Stunde ';
+                }
+                else{
+                    document.getElementById(id).innerHTML += hours + ' Stunden ';
+                }
+
+
+                /*
+                    document.getElementById(id).innerHTML = days + ' Tage ';
+                    document.getElementById(id).innerHTML += hours + ' Stunden ';
+                    document.getElementById(id).innerHTML += minutes + ' Minuten ';
+                    document.getElementById(id).innerHTML += seconds + ' Sekunden';
+                */
+                
+            }
+
+            timer = setInterval(showRemaining, 1000);
+        }
+    </script>
+
+</body>
+</html>
